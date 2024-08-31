@@ -6,6 +6,7 @@ export const ShopCartProvider = ({ children }) => {
   const [products, setProducts] = useState();
   const [loading, setLoading] = useState(false);
   const [cartList, setCartList] = useState([]);
+  const [currency, setCurrency] = useState(false);
 
   const handleAddCart = (curretnItem) => {
     let copyCart = [...cartList];
@@ -42,6 +43,10 @@ export const ShopCartProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
+  const currencyChange = () => {
+    setCurrency(!currency);
+  };
+
   return (
     <ShopCartContext.Provider
       value={{
@@ -51,6 +56,8 @@ export const ShopCartProvider = ({ children }) => {
         setLoading,
         handleAddCart,
         cartList,
+        currency,
+        currencyChange,
       }}
     >
       {children}

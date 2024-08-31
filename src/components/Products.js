@@ -3,9 +3,10 @@ import ShopCartContext from "../context/ShopCartContext";
 import PopUp from "./PopUp";
 
 const Products = ({ product }) => {
-  const { handleAddCart, cartList } = useContext(ShopCartContext);
+  const { handleAddCart, cartList, currency } = useContext(ShopCartContext);
   const [popUP, setPopUp] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
+
   const handlePopUp = (product) => {
     setSelectedProduct(product);
     setPopUp(true);
@@ -13,6 +14,8 @@ const Products = ({ product }) => {
   const closePopup = () => {
     setPopUp(false);
   };
+
+  const price = Math.round(product?.price * 83.89 * 100) / 100;
 
   return (
     <div>
@@ -30,10 +33,12 @@ const Products = ({ product }) => {
           </h1>
         </div>
         <div className="flex w-full justify-between mt-2 px-3">
-          <h2 className="font-semibold mt-2">Price : ${product?.price}</h2>
+          <h2 className="font-semibold mt-2">
+            Price : {currency ? `₹${price}` : `$${product?.price}`}
+          </h2>
           <button
             onClick={() => handleAddCart(product)}
-            className="bg-red-950 text-white border-2 rounded-lg font-bold p-2"
+            className="bg-red-950 text-white border-2 rounded-lg font-bold p-2 "
           >
             {cartList &&
             cartList.length &&
